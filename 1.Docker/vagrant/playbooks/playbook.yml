@@ -1,0 +1,7 @@
+---
+
+- name: Create stand for Docker
+  hosts: all
+  become: true
+  roles:
+    - docker

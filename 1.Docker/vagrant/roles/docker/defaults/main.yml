@@ -1,0 +1,11 @@
+---
+# defaults file for docker
+
+  common_packages:
+#    - device-mapper-persistent-data
+#    - lvm2
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+#    - libcgroup-tools
+    - docker-compose

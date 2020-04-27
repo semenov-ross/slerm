@@ -1,0 +1,41 @@
+---
+# tasks file for docker
+
+- name: Add Docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docer-ce.repo
+  become: yes
+
+- name: Install EPEL Repo
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install common package
+  yum:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Copy docker dz file
+  copy:
+    src: srv/
+    dest: ~/srv/
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Create and start container
+  shell: 'docker-compose -f /root/srv/docker-compose.yml up -d'
+
+#- name: Create and start container
+#  docker_compose:
+#    project_src: /root/srv
+#  register: output
